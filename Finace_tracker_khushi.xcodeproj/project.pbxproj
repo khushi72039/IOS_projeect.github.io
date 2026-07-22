@@ -1,0 +1,651 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F3266F3F300B24E60053F275 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3266F3E300B24E50053F275 /* Category.swift */; };
+		F3266F41300B26840053F275 /* CategoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3266F40300B26840053F275 /* CategoryRepository.swift */; };
+		F3266F44300B292F0053F275 /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3266F43300B292F0053F275 /* CategoryViewModel.swift */; };
+		F3266F46300B29690053F275 /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3266F45300B29690053F275 /* CategoriesView.swift */; };
+		F3266F48300B29D30053F275 /* AddCategoryView..swift in Sources */ = {isa = PBXBuildFile; fileRef = F3266F47300B29D30053F275 /* AddCategoryView..swift */; };
+		F3266F4A300B30400053F275 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3266F49300B30400053F275 /* Transaction.swift */; };
+		F3266F4C300B30760053F275 /* TransactionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3266F4B300B30760053F275 /* TransactionRepository.swift */; };
+		F3266F4F300B30C30053F275 /* TransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3266F4E300B30C30053F275 /* TransactionViewModel.swift */; };
+		F3266F51300B30E70053F275 /* AddTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3266F50300B30E70053F275 /* AddTransactionView.swift */; };
+		F3266F53300B311F0053F275 /* TransactionsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3266F52300B311F0053F275 /* TransactionsListView.swift */; };
+		F3266F55300B53D60053F275 /* Budget.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3266F54300B53D60053F275 /* Budget.swift */; };
+		F3266F57300B54080053F275 /* BudgetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3266F56300B54080053F275 /* BudgetRepository.swift */; };
+		F3266F5A300B544E0053F275 /* BudgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3266F59300B544E0053F275 /* BudgetViewModel.swift */; };
+		F3266F5C300B54730053F275 /* BudgetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3266F5B300B54730053F275 /* BudgetsView.swift */; };
+		F3266F5E300B54930053F275 /* SetBudgetLimitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3266F5D300B54930053F275 /* SetBudgetLimitView.swift */; };
+		F364C31C300747CC00C65A5E /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F364C31B300747CC00C65A5E /* ToastView.swift */; };
+		F3D00B512FFE121B00B6CD90 /* Finace_tracker_khushiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D00B502FFE121B00B6CD90 /* Finace_tracker_khushiApp.swift */; };
+		F3D00B532FFE121B00B6CD90 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D00B522FFE121B00B6CD90 /* ContentView.swift */; };
+		F3D00B552FFE121C00B6CD90 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3D00B542FFE121C00B6CD90 /* Assets.xcassets */; };
+		F3D00B582FFE121C00B6CD90 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3D00B572FFE121C00B6CD90 /* Preview Assets.xcassets */; };
+		F3DACA0B3010B13D00DAA232 /* ChartsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DACA0A3010B13D00DAA232 /* ChartsViewModel.swift */; };
+		F3DACA0D3010B19800DAA232 /* ChartsView..swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DACA0C3010B19800DAA232 /* ChartsView..swift */; };
+		F3E573A42FFF59EB0072DC72 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = F3E573A32FFF59EB0072DC72 /* FirebaseAuth */; };
+		F3E573A62FFF59EB0072DC72 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = F3E573A52FFF59EB0072DC72 /* FirebaseDatabase */; };
+		F3E573A82FFF59EB0072DC72 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = F3E573A72FFF59EB0072DC72 /* FirebaseFirestore */; };
+		F3E573AA2FFF59EB0072DC72 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = F3E573A92FFF59EB0072DC72 /* FirebaseStorage */; };
+		F3E573B72FFF91E20072DC72 /* AuthCheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E573B62FFF8D370072DC72 /* AuthCheckView.swift */; };
+		F3E573B82FFF92120072DC72 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E573AF2FFF8C0A0072DC72 /* AuthViewModel.swift */; };
+		F3E573B92FFF921A0072DC72 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E573AE2FFF8BC80072DC72 /* AuthService.swift */; };
+		F3E573BA2FFF92240072DC72 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E573B32FFF8CCE0072DC72 /* LoginView.swift */; };
+		F3E573BB2FFF922B0072DC72 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E573B42FFF8CF70072DC72 /* SignupView.swift */; };
+		F3E573BC2FFF92320072DC72 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E573B52FFF8D160072DC72 /* ForgotPasswordView.swift */; };
+		F3E573C32FFF9E600072DC72 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E573C22FFF9BDD0072DC72 /* UserRepository.swift */; };
+		F3E573C42FFF9E6D0072DC72 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E573C02FFF9B860072DC72 /* User.swift */; };
+		F3E573C62FFFA6D30072DC72 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3E573C52FFFA6D30072DC72 /* GoogleService-Info.plist */; };
+		F3E573C92FFFA77D0072DC72 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = F3E573C82FFFA77D0072DC72 /* GoogleSignIn */; };
+		F3E573CB2FFFA77D0072DC72 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F3E573CA2FFFA77D0072DC72 /* GoogleSignInSwift */; };
+		F3F3416830077DEB00308A7B /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3416730077DEB00308A7B /* SplashView.swift */; };
+		F3F3416C300783BF00308A7B /* AppThemeswift.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3416B300783BF00308A7B /* AppThemeswift.swift */; };
+		F3F3416F3007917B00308A7B /* DashboardViewModelswift.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F3416E3007917B00308A7B /* DashboardViewModelswift.swift */; };
+		F3F34171300791F700308A7B /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F34170300791F700308A7B /* DashboardView.swift */; };
+		F3F341733007925F00308A7B /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F341723007925F00308A7B /* MainTabView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F3266F3E300B24E50053F275 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		F3266F40300B26840053F275 /* CategoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRepository.swift; sourceTree = "<group>"; };
+		F3266F43300B292F0053F275 /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
+		F3266F45300B29690053F275 /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
+		F3266F47300B29D30053F275 /* AddCategoryView..swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryView..swift; sourceTree = "<group>"; };
+		F3266F49300B30400053F275 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		F3266F4B300B30760053F275 /* TransactionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionRepository.swift; sourceTree = "<group>"; };
+		F3266F4E300B30C30053F275 /* TransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewModel.swift; sourceTree = "<group>"; };
+		F3266F50300B30E70053F275 /* AddTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionView.swift; sourceTree = "<group>"; };
+		F3266F52300B311F0053F275 /* TransactionsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsListView.swift; sourceTree = "<group>"; };
+		F3266F54300B53D60053F275 /* Budget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Budget.swift; sourceTree = "<group>"; };
+		F3266F56300B54080053F275 /* BudgetRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetRepository.swift; sourceTree = "<group>"; };
+		F3266F59300B544E0053F275 /* BudgetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetViewModel.swift; sourceTree = "<group>"; };
+		F3266F5B300B54730053F275 /* BudgetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetsView.swift; sourceTree = "<group>"; };
+		F3266F5D300B54930053F275 /* SetBudgetLimitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetBudgetLimitView.swift; sourceTree = "<group>"; };
+		F364C31B300747CC00C65A5E /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		F3D00B4D2FFE121B00B6CD90 /* Finace_tracker_khushi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Finace_tracker_khushi.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3D00B502FFE121B00B6CD90 /* Finace_tracker_khushiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Finace_tracker_khushiApp.swift; sourceTree = "<group>"; };
+		F3D00B522FFE121B00B6CD90 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F3D00B542FFE121C00B6CD90 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F3D00B572FFE121C00B6CD90 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F3DACA0A3010B13D00DAA232 /* ChartsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsViewModel.swift; sourceTree = "<group>"; };
+		F3DACA0C3010B19800DAA232 /* ChartsView..swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsView..swift; sourceTree = "<group>"; };
+		F3E573AE2FFF8BC80072DC72 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		F3E573AF2FFF8C0A0072DC72 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		F3E573B32FFF8CCE0072DC72 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		F3E573B42FFF8CF70072DC72 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
+		F3E573B52FFF8D160072DC72 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
+		F3E573B62FFF8D370072DC72 /* AuthCheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCheckView.swift; sourceTree = "<group>"; };
+		F3E573C02FFF9B860072DC72 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		F3E573C22FFF9BDD0072DC72 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
+		F3E573C52FFFA6D30072DC72 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F3E573CC2FFFA8CC0072DC72 /* Finace-tracker-khushi-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Finace-tracker-khushi-Info.plist"; sourceTree = SOURCE_ROOT; };
+		F3F3416730077DEB00308A7B /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		F3F3416B300783BF00308A7B /* AppThemeswift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppThemeswift.swift; path = Core/Utils/AppThemeswift.swift; sourceTree = SOURCE_ROOT; };
+		F3F3416E3007917B00308A7B /* DashboardViewModelswift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModelswift.swift; sourceTree = "<group>"; };
+		F3F34170300791F700308A7B /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		F3F341723007925F00308A7B /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainTabView.swift; path = Features/MainTabView.swift; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F3D00B4A2FFE121B00B6CD90 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3E573C92FFFA77D0072DC72 /* GoogleSignIn in Frameworks */,
+				F3E573A62FFF59EB0072DC72 /* FirebaseDatabase in Frameworks */,
+				F3E573AA2FFF59EB0072DC72 /* FirebaseStorage in Frameworks */,
+				F3E573CB2FFFA77D0072DC72 /* GoogleSignInSwift in Frameworks */,
+				F3E573A42FFF59EB0072DC72 /* FirebaseAuth in Frameworks */,
+				F3E573A82FFF59EB0072DC72 /* FirebaseFirestore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F3266F42300B29060053F275 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				F3266F43300B292F0053F275 /* CategoryViewModel.swift */,
+				F3266F45300B29690053F275 /* CategoriesView.swift */,
+				F3266F47300B29D30053F275 /* AddCategoryView..swift */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		F3266F4D300B30AB0053F275 /* Transactions */ = {
+			isa = PBXGroup;
+			children = (
+				F3266F4E300B30C30053F275 /* TransactionViewModel.swift */,
+				F3266F50300B30E70053F275 /* AddTransactionView.swift */,
+				F3266F52300B311F0053F275 /* TransactionsListView.swift */,
+			);
+			path = Transactions;
+			sourceTree = "<group>";
+		};
+		F3266F58300B542F0053F275 /* Budgets */ = {
+			isa = PBXGroup;
+			children = (
+				F3266F59300B544E0053F275 /* BudgetViewModel.swift */,
+				F3266F5B300B54730053F275 /* BudgetsView.swift */,
+				F3266F5D300B54930053F275 /* SetBudgetLimitView.swift */,
+			);
+			path = Budgets;
+			sourceTree = "<group>";
+		};
+		F364C31A300747A300C65A5E /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				F364C31B300747CC00C65A5E /* ToastView.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		F3D00B442FFE121B00B6CD90 = {
+			isa = PBXGroup;
+			children = (
+				F3E573C52FFFA6D30072DC72 /* GoogleService-Info.plist */,
+				F3E573C12FFF9BC80072DC72 /* Repositories */,
+				F3E573BF2FFF9B270072DC72 /* Models */,
+				F3E573B02FFF8C720072DC72 /* Features */,
+				F3E573AC2FFF87EE0072DC72 /* Core */,
+				F3D00B4F2FFE121B00B6CD90 /* Finace_tracker_khushi */,
+				F3D00B4E2FFE121B00B6CD90 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F3D00B4E2FFE121B00B6CD90 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F3D00B4D2FFE121B00B6CD90 /* Finace_tracker_khushi.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F3D00B4F2FFE121B00B6CD90 /* Finace_tracker_khushi */ = {
+			isa = PBXGroup;
+			children = (
+				F3E573CC2FFFA8CC0072DC72 /* Finace-tracker-khushi-Info.plist */,
+				F3D00B502FFE121B00B6CD90 /* Finace_tracker_khushiApp.swift */,
+				F3D00B522FFE121B00B6CD90 /* ContentView.swift */,
+				F3D00B542FFE121C00B6CD90 /* Assets.xcassets */,
+				F3D00B562FFE121C00B6CD90 /* Preview Content */,
+			);
+			path = Finace_tracker_khushi;
+			sourceTree = "<group>";
+		};
+		F3D00B562FFE121C00B6CD90 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				F3D00B572FFE121C00B6CD90 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		F3DACA093010B11800DAA232 /* Charts */ = {
+			isa = PBXGroup;
+			children = (
+				F3DACA0A3010B13D00DAA232 /* ChartsViewModel.swift */,
+				F3DACA0C3010B19800DAA232 /* ChartsView..swift */,
+			);
+			path = Charts;
+			sourceTree = "<group>";
+		};
+		F3E573AC2FFF87EE0072DC72 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				F364C31A300747A300C65A5E /* Utils */,
+				F3E573AD2FFF87FE0072DC72 /* Auth */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		F3E573AD2FFF87FE0072DC72 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				F3E573AF2FFF8C0A0072DC72 /* AuthViewModel.swift */,
+				F3E573AE2FFF8BC80072DC72 /* AuthService.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		F3E573B02FFF8C720072DC72 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				F3DACA093010B11800DAA232 /* Charts */,
+				F3266F58300B542F0053F275 /* Budgets */,
+				F3266F4D300B30AB0053F275 /* Transactions */,
+				F3266F42300B29060053F275 /* Categories */,
+				F3F341723007925F00308A7B /* MainTabView.swift */,
+				F3F3416D3007907100308A7B /* Dashboard */,
+				F3F3416630077DC300308A7B /* Splash */,
+				F3E573B12FFF8C7A0072DC72 /* Auth */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		F3E573B12FFF8C7A0072DC72 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				F3E573B62FFF8D370072DC72 /* AuthCheckView.swift */,
+				F3E573B52FFF8D160072DC72 /* ForgotPasswordView.swift */,
+				F3E573B42FFF8CF70072DC72 /* SignupView.swift */,
+				F3F3416B300783BF00308A7B /* AppThemeswift.swift */,
+				F3E573B32FFF8CCE0072DC72 /* LoginView.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		F3E573BF2FFF9B270072DC72 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F3E573C02FFF9B860072DC72 /* User.swift */,
+				F3266F3E300B24E50053F275 /* Category.swift */,
+				F3266F49300B30400053F275 /* Transaction.swift */,
+				F3266F54300B53D60053F275 /* Budget.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		F3E573C12FFF9BC80072DC72 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				F3E573C22FFF9BDD0072DC72 /* UserRepository.swift */,
+				F3266F40300B26840053F275 /* CategoryRepository.swift */,
+				F3266F4B300B30760053F275 /* TransactionRepository.swift */,
+				F3266F56300B54080053F275 /* BudgetRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		F3F3416630077DC300308A7B /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				F3F3416730077DEB00308A7B /* SplashView.swift */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
+		F3F3416D3007907100308A7B /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				F3F3416E3007917B00308A7B /* DashboardViewModelswift.swift */,
+				F3F34170300791F700308A7B /* DashboardView.swift */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F3D00B4C2FFE121B00B6CD90 /* Finace_tracker_khushi */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F3D00B5B2FFE121C00B6CD90 /* Build configuration list for PBXNativeTarget "Finace_tracker_khushi" */;
+			buildPhases = (
+				F3D00B492FFE121B00B6CD90 /* Sources */,
+				F3D00B4A2FFE121B00B6CD90 /* Frameworks */,
+				F3D00B4B2FFE121B00B6CD90 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Finace_tracker_khushi;
+			productName = Finace_tracker_khushi;
+			productReference = F3D00B4D2FFE121B00B6CD90 /* Finace_tracker_khushi.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F3D00B452FFE121B00B6CD90 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					F3D00B4C2FFE121B00B6CD90 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+				};
+			};
+			buildConfigurationList = F3D00B482FFE121B00B6CD90 /* Build configuration list for PBXProject "Finace_tracker_khushi" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F3D00B442FFE121B00B6CD90;
+			packageReferences = (
+				F3E573A22FFF59EB0072DC72 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				F3E573C72FFFA77D0072DC72 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+			);
+			productRefGroup = F3D00B4E2FFE121B00B6CD90 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F3D00B4C2FFE121B00B6CD90 /* Finace_tracker_khushi */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F3D00B4B2FFE121B00B6CD90 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3D00B582FFE121C00B6CD90 /* Preview Assets.xcassets in Resources */,
+				F3D00B552FFE121C00B6CD90 /* Assets.xcassets in Resources */,
+				F3E573C62FFFA6D30072DC72 /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F3D00B492FFE121B00B6CD90 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3266F4A300B30400053F275 /* Transaction.swift in Sources */,
+				F3DACA0B3010B13D00DAA232 /* ChartsViewModel.swift in Sources */,
+				F3E573BB2FFF922B0072DC72 /* SignupView.swift in Sources */,
+				F3E573BA2FFF92240072DC72 /* LoginView.swift in Sources */,
+				F3F3416C300783BF00308A7B /* AppThemeswift.swift in Sources */,
+				F3F341733007925F00308A7B /* MainTabView.swift in Sources */,
+				F3266F55300B53D60053F275 /* Budget.swift in Sources */,
+				F3E573C32FFF9E600072DC72 /* UserRepository.swift in Sources */,
+				F3266F5C300B54730053F275 /* BudgetsView.swift in Sources */,
+				F3E573BC2FFF92320072DC72 /* ForgotPasswordView.swift in Sources */,
+				F3E573B82FFF92120072DC72 /* AuthViewModel.swift in Sources */,
+				F3E573B72FFF91E20072DC72 /* AuthCheckView.swift in Sources */,
+				F3266F53300B311F0053F275 /* TransactionsListView.swift in Sources */,
+				F3266F46300B29690053F275 /* CategoriesView.swift in Sources */,
+				F3266F57300B54080053F275 /* BudgetRepository.swift in Sources */,
+				F3F34171300791F700308A7B /* DashboardView.swift in Sources */,
+				F364C31C300747CC00C65A5E /* ToastView.swift in Sources */,
+				F3DACA0D3010B19800DAA232 /* ChartsView..swift in Sources */,
+				F3266F44300B292F0053F275 /* CategoryViewModel.swift in Sources */,
+				F3E573B92FFF921A0072DC72 /* AuthService.swift in Sources */,
+				F3266F3F300B24E60053F275 /* Category.swift in Sources */,
+				F3F3416830077DEB00308A7B /* SplashView.swift in Sources */,
+				F3D00B532FFE121B00B6CD90 /* ContentView.swift in Sources */,
+				F3E573C42FFF9E6D0072DC72 /* User.swift in Sources */,
+				F3266F5A300B544E0053F275 /* BudgetViewModel.swift in Sources */,
+				F3266F41300B26840053F275 /* CategoryRepository.swift in Sources */,
+				F3266F51300B30E70053F275 /* AddTransactionView.swift in Sources */,
+				F3266F48300B29D30053F275 /* AddCategoryView..swift in Sources */,
+				F3266F5E300B54930053F275 /* SetBudgetLimitView.swift in Sources */,
+				F3266F4C300B30760053F275 /* TransactionRepository.swift in Sources */,
+				F3D00B512FFE121B00B6CD90 /* Finace_tracker_khushiApp.swift in Sources */,
+				F3F3416F3007917B00308A7B /* DashboardViewModelswift.swift in Sources */,
+				F3266F4F300B30C30053F275 /* TransactionViewModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		F3D00B592FFE121C00B6CD90 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F3D00B5A2FFE121C00B6CD90 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F3D00B5C2FFE121C00B6CD90 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Finace_tracker_khushi/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Finace-tracker-khushi-Info.plist";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sahul.Finace-tracker-khushi";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F3D00B5D2FFE121C00B6CD90 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Finace_tracker_khushi/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Finace-tracker-khushi-Info.plist";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sahul.Finace-tracker-khushi";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F3D00B482FFE121B00B6CD90 /* Build configuration list for PBXProject "Finace_tracker_khushi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F3D00B592FFE121C00B6CD90 /* Debug */,
+				F3D00B5A2FFE121C00B6CD90 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F3D00B5B2FFE121C00B6CD90 /* Build configuration list for PBXNativeTarget "Finace_tracker_khushi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F3D00B5C2FFE121C00B6CD90 /* Debug */,
+				F3D00B5D2FFE121C00B6CD90 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F3E573A22FFF59EB0072DC72 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.16.0;
+			};
+		};
+		F3E573C72FFFA77D0072DC72 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F3E573A32FFF59EB0072DC72 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F3E573A22FFF59EB0072DC72 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		F3E573A52FFF59EB0072DC72 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F3E573A22FFF59EB0072DC72 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		F3E573A72FFF59EB0072DC72 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F3E573A22FFF59EB0072DC72 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		F3E573A92FFF59EB0072DC72 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F3E573A22FFF59EB0072DC72 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+		F3E573C82FFFA77D0072DC72 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F3E573C72FFFA77D0072DC72 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		F3E573CA2FFFA77D0072DC72 /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F3E573C72FFFA77D0072DC72 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = F3D00B452FFE121B00B6CD90 /* Project object */;
+}
