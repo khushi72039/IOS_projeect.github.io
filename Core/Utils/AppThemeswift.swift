@@ -4,8 +4,8 @@ enum AppTheme {
     
     // MARK: - Primary Brand Color (Adaptive)
     static let primaryIndigo = Color(
-        light: Color(red: 0.11, green: 0.16, blue: 0.42),   // Deep Sapphire (light mode)
-        dark: Color(red: 0.45, green: 0.52, blue: 0.92)      // Bright Sapphire (dark mode)
+        light: Color(red: 0.11, green: 0.16, blue: 0.42),
+        dark: Color(red: 0.45, green: 0.52, blue: 0.92)
     )
     
     static let deepBackground = Color(
@@ -38,7 +38,7 @@ enum AppTheme {
         endPoint: .bottomTrailing
     )
     
-    // Decorative top shape - ab deep aur rich, halka/pastel nahi
+    
     static let decorativeGradient = LinearGradient(
         colors: [Color(red: 0.08, green: 0.12, blue: 0.34),
                  Color(red: 0.24, green: 0.10, blue: 0.32)],
@@ -46,12 +46,11 @@ enum AppTheme {
         endPoint: .bottomTrailing
     )
     
-    // MARK: - Surfaces
+    
     static let cardBackground = Color(.systemBackground)
     static let fieldBackground = Color(.systemGray6)
 }
 
-// MARK: - Helper Extension for Light/Dark Adaptive Colors
 extension Color {
     init(light: Color, dark: Color) {
         self.init(UIColor { traits in

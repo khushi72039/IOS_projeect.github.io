@@ -57,7 +57,7 @@ class AuthService {
         GIDSignIn.sharedInstance.configuration = config
         
         do {
-            // Step 1: Google ka login popup dikhao
+           
             let result = try await GIDSignIn.sharedInstance.signIn(withPresenting: viewController)
             
             guard let idToken = result.user.idToken?.tokenString else {
@@ -65,16 +65,15 @@ class AuthService {
             }
             let accessToken = result.user.accessToken.tokenString
             
-            // Step 2: Google ke token ko Firebase credential me convert karo
+            
             let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
             
-            // Step 3: Firebase me sign in karo us credential se
             let authResult = try await Auth.auth().signIn(with: credential)
             
             let name = authResult.user.displayName ?? result.user.profile?.name ?? "User"
             let email = authResult.user.email ?? ""
             
-            // Yeh check karta hai ki yeh bilkul naya user hai ya pehle se hai
+            
             let isNewUser = authResult.additionalUserInfo?.isNewUser ?? false
             
             return (authResult.user.uid, name, email, isNewUser)
@@ -85,7 +84,7 @@ class AuthService {
     
     func logOut() throws {
         try Auth.auth().signOut()
-        GIDSignIn.sharedInstance.signOut() // Google session bhi clear karo
+        GIDSignIn.sharedInstance.signOut() 
     }
     
     func currentUserId() -> String? {

@@ -13,11 +13,13 @@ class BudgetViewModel: ObservableObject {
     private let categoryRepository = CategoryRepository()
     private var userId: String?
     
+    // Ek reasonable maximum budget limit (10 crore)
+    static let maxBudgetLimit: Double = 99_999_999
+    
     func setUserId(_ id: String) {
         self.userId = id
     }
     
-    // MARK: - Load Budgets with Spent Calculation
     func loadBudgets() async {
         guard let userId = userId else { return }
         isLoading = true
@@ -28,7 +30,6 @@ class BudgetViewModel: ObservableObject {
         let currentYear = calendar.component(.year, from: now)
         
         do {
-            // Sirf expense categories par budget set hota hai
             let categories = try await categoryRepository.fetchCategories(userId: userId)
             let expenseCategories = categories.filter { $0.type == .expense }
             
@@ -39,7 +40,6 @@ class BudgetViewModel: ObservableObject {
                 $0.type == .expense && calendar.isDate($0.date, equalTo: now, toGranularity: .month)
             }
             
-            // Har expense category ke liye spent amount calculate karo aur budget se match karo
             budgetItems = expenseCategories.map { category in
                 let spent = currentMonthExpenses
                     .filter { $0.categoryId == category.id }
@@ -61,7 +61,7 @@ class BudgetViewModel: ObservableObject {
         isLoading = false
     }
     
-    // MARK: - Set/Update Budget Limit
+    // MARK: - Set/Update Budget Limit (ab maximum limit check ke saath)
     func setBudgetLimit(for category: Category, limit: Double) async -> Bool {
         guard let userId = userId else { return false }
         
@@ -70,12 +70,16 @@ class BudgetViewModel: ObservableObject {
             return false
         }
         
+        guard limit <= BudgetViewModel.maxBudgetLimit else {
+            errorMessage = "Budget limit cannot exceed ₹9,99,99,999"
+            return false
+        }
+        
         let calendar = Calendar.current
         let now = Date()
         let currentMonth = calendar.component(.month, from: now)
         let currentYear = calendar.component(.year, from: now)
         
-        // Agar pehle se budget hai to usi ID ko reuse karo (overwrite ho jayega), nahi to naya ID banao
         let existingId = budgetItems.first { $0.category.id == category.id }?.budget?.id
         
         let newBudget = Budget(
@@ -107,7 +111,6 @@ class BudgetViewModel: ObservableObject {
     }
 }
 
-// MARK: - Helper Struct - Category + Budget + Spent combined
 struct BudgetProgress: Identifiable {
     var id: String { category.id }
     let category: Category

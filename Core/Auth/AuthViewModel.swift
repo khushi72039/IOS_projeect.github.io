@@ -8,22 +8,20 @@ class AuthViewModel: ObservableObject {
     @Published var password: String = ""
     @Published var confirmPassword: String = ""
     @Published var name: String = ""
-    @Published var selectedCurrency: String = "INR"   // Naya add kiya
+    @Published var selectedCurrency: String = "INR"
     
     @Published var isLoading: Bool = false
     @Published var errorMessage: String? = nil
     @Published var isLoggedIn: Bool = false
     @Published var currentUser: User? = nil
-    @Published var toastMessage: String? = nil    // Naya add kiya - success message ke liye
-    // Naya add kiya - Firestore se aaya hua data
+    @Published var toastMessage: String? = nil
     
     private let authService = AuthService()
-    private let userRepository = UserRepository()       // Naya add kiya
+    private let userRepository = UserRepository()
     
     init() {
         self.isLoggedIn = authService.currentUserId() != nil
         
-        // Agar pehle se login hai, to Firestore se user ka data bhi fetch kar lo
         if let uid = authService.currentUserId() {
             Task {
                 await fetchCurrentUser(uid: uid)
@@ -54,10 +52,8 @@ class AuthViewModel: ObservableObject {
         
         isLoading = true
         do {
-            // Step 1: Firebase Authentication me account banao
             let uid = try await authService.signUp(email: email, password: password)
             
-            // Step 2: Firestore me User document banao (naam, currency, email save karne ke liye)
             let newUser = User(
                 id: uid,
                 name: name,
@@ -66,20 +62,27 @@ class AuthViewModel: ObservableObject {
                 createdAt: Date()
             )
             try await userRepository.createUser(newUser)
-                        
-                        // Naye user ke liye default categories bhi bana do
-                        let categoryRepository = CategoryRepository()
-                        try? await categoryRepository.seedDefaultCategories(userId: uid)
-                        
-                        self.currentUser = newUser
-                        isLoggedIn = true
-                        toastMessage = "Account Created Successfully! 🎉"
-                        
-                        // 2 second baad toast apne aap gayab ho jaye
-                        Task {
-                            try? await Task.sleep(nanoseconds: 2_000_000_000)
-                            toastMessage = nil
-                        }
+            
+            print("DEBUG: Seeding categories for new signup user: \(uid)")
+            let categoryRepository = CategoryRepository()
+            let budgetRepository = BudgetRepository()
+            do {
+                let createdCategories = try await categoryRepository.seedDefaultCategories(userId: uid)
+                print("DEBUG: Categories seeded: \(createdCategories.count)")
+                try await budgetRepository.seedDefaultBudgets(userId: uid, categories: createdCategories)
+                print("DEBUG: Budgets seeded successfully")
+            } catch {
+                print("DEBUG: Seeding failed with error: \(error.localizedDescription)")
+            }
+            
+            self.currentUser = newUser
+            isLoggedIn = true
+            toastMessage = "Account Created Successfully! 🎉"
+            
+            Task {
+                try? await Task.sleep(nanoseconds: 2_000_000_000)
+                toastMessage = nil
+            }
         } catch {
             errorMessage = error.localizedDescription
         }
@@ -98,16 +101,15 @@ class AuthViewModel: ObservableObject {
         do {
             let uid = try await authService.logIn(email: email, password: password)
             
-            // Login ke baad Firestore se user ka poora data (naam, currency) fetch karo
             await fetchCurrentUser(uid: uid)
-                        
-                        isLoggedIn = true
-                        toastMessage = "Login Successful! ✅"
-                        
-                        Task {
-                            try? await Task.sleep(nanoseconds: 2_000_000_000)
-                            toastMessage = nil
-                        }
+            
+            isLoggedIn = true
+            toastMessage = "Login Successful! ✅"
+            
+            Task {
+                try? await Task.sleep(nanoseconds: 2_000_000_000)
+                toastMessage = nil
+            }
         } catch {
             errorMessage = error.localizedDescription
         }
@@ -119,7 +121,7 @@ class AuthViewModel: ObservableObject {
         do {
             self.currentUser = try await userRepository.fetchUser(userId: uid)
         } catch {
-            print("Error fetching user:  \(error.localizedDescription)")
+            print("Error fetching user: \(error.localizedDescription)")
         }
     }
     
@@ -143,58 +145,70 @@ class AuthViewModel: ObservableObject {
         }
     }
     
+    // MARK: - Google Sign-In Logic
+    func signInWithGoogle() async {
+        errorMessage = nil
+        isLoading = true
+        
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let rootVC = windowScene.windows.first?.rootViewController else {
+            errorMessage = "Unable to find the current screen"
+            isLoading = false
+            return
+        }
+        
+        do {
+            let result = try await authService.signInWithGoogle(presenting: rootVC)
+            
+            print("DEBUG: Google sign-in result - isNewUser: \(result.isNewUser), uid: \(result.uid)")
+            
+            if result.isNewUser {
+                let newUser = User(
+                    id: result.uid,
+                    name: result.name,
+                    email: result.email,
+                    currencyCode: "INR",
+                    createdAt: Date()
+                )
+                try await userRepository.createUser(newUser)
+                
+                print("DEBUG: Seeding categories for new Google user: \(result.uid)")
+                let categoryRepository = CategoryRepository()
+                let budgetRepository = BudgetRepository()
+                do {
+                    let createdCategories = try await categoryRepository.seedDefaultCategories(userId: result.uid)
+                    print("DEBUG: Categories seeded: \(createdCategories.count)")
+                    try await budgetRepository.seedDefaultBudgets(userId: result.uid, categories: createdCategories)
+                    print("DEBUG: Budgets seeded successfully")
+                } catch {
+                    print("DEBUG: Seeding failed with error: \(error.localizedDescription)")
+                }
+                
+                self.currentUser = newUser
+            } else {
+                print("DEBUG: Existing user detected, skipping seed")
+                await fetchCurrentUser(uid: result.uid)
+            }
+            
+            isLoggedIn = true
+            toastMessage = "Login Successful! ✅"
+            
+            Task {
+                try? await Task.sleep(nanoseconds: 2_000_000_000)
+                toastMessage = nil
+            }
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+        isLoading = false
+    }
+    
     // MARK: - Logout
     func logOut() {
         try? authService.logOut()
         isLoggedIn = false
         currentUser = nil
     }
-    
-    
-    // MARK: - Google Sign-In Logic
-        func signInWithGoogle() async {
-            errorMessage = nil
-            isLoading = true
-            
-            // Current screen ka UIViewController dhoondhna (SwiftUI me thoda manual karna padta hai)
-            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                  let rootVC = windowScene.windows.first?.rootViewController else {
-                errorMessage = "Unable to find the current screen"
-                isLoading = false
-                return
-            }
-            
-            do {
-                let result = try await authService.signInWithGoogle(presenting: rootVC)
-                
-                if result.isNewUser {
-                    // Naya user hai to Firestore me User document banao
-                    let newUser = User(
-                        id: result.uid,
-                        name: result.name,
-                        email: result.email,
-                        currencyCode: "INR", // Google Sign-In me currency picker nahi hai, isliye default
-                        createdAt: Date()
-                    )
-                    try await userRepository.createUser(newUser)
-                    self.currentUser = newUser
-                } else {
-                    // Purana user hai to Firestore se uska data fetch karo
-                    await fetchCurrentUser(uid: result.uid)
-                }
-                
-                isLoggedIn = true
-                            toastMessage = "Login Successful! ✅"
-                            
-                            Task {
-                                try? await Task.sleep(nanoseconds: 2_000_000_000)
-                                toastMessage = nil
-                            }
-            } catch {
-                errorMessage = error.localizedDescription
-            }
-            isLoading = false
-        }
     
     private func isValidEmail(_ email: String) -> Bool {
         let regex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"

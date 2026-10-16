@@ -2,56 +2,52 @@ import SwiftUI
 
 struct MainTabView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
+    @State private var selectedTab: Int = 0
+    @State private var dashboardPath = NavigationPath()
     
     var body: some View {
-        TabView {
-            DashboardView()
+        TabView(selection: $selectedTab) {
+            DashboardView(path: $dashboardPath)
                 .tabItem {
                     Label("Home", systemImage: "house.fill")
                 }
+                .tag(0)
             
             TransactionsListView()
                 .tabItem {
                     Label("Transactions", systemImage: "list.bullet")
                 }
+                .tag(1)
             
             BudgetsView()
-                            .tabItem {
-                                Label("Budgets", systemImage: "chart.pie.fill")
-                            }
-            
-            Text("AI Coach - Coming Soon")
                 .tabItem {
-                    Label("Coach", systemImage: "sparkles")
+                    Label("Budgets", systemImage: "chart.pie.fill")
                 }
+                .tag(2)
             
-            SettingsPlaceholderView()
+            ChartsView()
+                .tabItem {
+                    Label("Charts", systemImage: "chart.line.uptrend.xyaxis")
+                }
+                .tag(3)
+            
+            SettingsView()
                 .tabItem {
                     Label("Settings", systemImage: "gearshape.fill")
                 }
+                .tag(4)
         }
         .tint(AppTheme.primaryIndigo)
-    }
-}
-
-// Temporary Settings placeholder jisme Logout button hai (asli Settings screen baad me banega)
-struct SettingsPlaceholderView: View {
-    @EnvironmentObject var authViewModel: AuthViewModel
-    
-    var body: some View {
-        NavigationStack {
-            List {
-                NavigationLink("Manage Categories") {
-                    CategoriesView()
-                        .environmentObject(authViewModel)
-                }
-                
-                Button("Logout") {
-                    authViewModel.logOut()
-                }
-                .foregroundColor(AppTheme.expenseRed)
+        .onChange(of: selectedTab) { newValue in
+            if newValue == 0 {
+                dashboardPath = NavigationPath()
             }
-            .navigationTitle("Settings")
+        }
+        .task {
+            // App launch hote hi due recurring transactions generate karo
+            if let uid = authViewModel.currentUser?.id {
+                await RecurringEngine.shared.processRecurringRules(userId: uid)
+            }
         }
     }
 }

@@ -4,6 +4,7 @@ struct TransactionsListView: View {
     @StateObject private var viewModel = TransactionViewModel()
     @EnvironmentObject var authViewModel: AuthViewModel
     @State private var showAddSheet = false
+    @State private var showFilterSheet = false
     
     var body: some View {
         NavigationStack {
@@ -23,9 +24,21 @@ struct TransactionsListView: View {
                             .foregroundColor(AppTheme.textSecondary)
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
+                } else if viewModel.filteredTransactions.isEmpty {
+                    VStack(spacing: 12) {
+                        Image(systemName: "magnifyingglass")
+                            .font(.system(size: 50))
+                            .foregroundColor(AppTheme.textSecondary)
+                        Text("No matching transactions")
+                            .font(.headline)
+                        Text("Try adjusting your search, filters, or selected month")
+                            .font(.subheadline)
+                            .foregroundColor(AppTheme.textSecondary)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
                     List {
-                        ForEach(viewModel.groupedTransactions, id: \.date) { group in
+                        ForEach(viewModel.filteredGroupedTransactions, id: \.date) { group in
                             Section(group.date) {
                                 ForEach(group.items) { transaction in
                                     TransactionListRow(transaction: transaction)
@@ -40,8 +53,20 @@ struct TransactionsListView: View {
                     }
                 }
             }
+            .searchable(text: $viewModel.searchText, prompt: "Search by category or note")
             .navigationTitle("Transactions")
             .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        showFilterSheet = true
+                    } label: {
+                        Image(systemName: viewModel.isFilterActive ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
+                            .foregroundColor(AppTheme.primaryIndigo)
+                    }
+                }
+                ToolbarItem(placement: .principal) {
+                    MonthSelectorView(selectedOption: $viewModel.selectedMonthOption, options: viewModel.monthOptions)
+                }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         showAddSheet = true
@@ -53,6 +78,10 @@ struct TransactionsListView: View {
             }
             .sheet(isPresented: $showAddSheet) {
                 AddTransactionView(viewModel: viewModel)
+                    .environmentObject(authViewModel)
+            }
+            .sheet(isPresented: $showFilterSheet) {
+                TransactionFilterView(viewModel: viewModel)
                     .environmentObject(authViewModel)
             }
             .overlay(alignment: .top) {

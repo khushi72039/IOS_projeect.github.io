@@ -11,7 +11,7 @@ struct LoginView: View {
                 AppTheme.deepBackground
                     .ignoresSafeArea()
                 
-                // Decorative top shape - premium accent, adaptive background ke upar
+                
                 AppTheme.decorativeGradient
                     .frame(height: 260)
                     .clipShape(
@@ -43,7 +43,7 @@ struct LoginView: View {
                                 .foregroundColor(.white.opacity(0.85))
                         }
                         
-                        // Form Card
+                        
                         VStack(spacing: 18) {
                             
                             HStack(spacing: 12) {

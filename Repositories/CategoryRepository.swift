@@ -5,13 +5,10 @@ class CategoryRepository {
     
     private let db = Firestore.firestore()
     
-    // User ke liye categories collection ka path banata hai
-    // Har user ki apni categories alag rahengi (subcollection ke through)
     private func categoriesCollection(userId: String) -> CollectionReference {
         db.collection("users").document(userId).collection("categories")
     }
     
-    // Naya category add karne ke liye
     func addCategory(userId: String, category: Category) async throws {
         let data: [String: Any] = [
             "id": category.id,
@@ -24,7 +21,6 @@ class CategoryRepository {
         try await categoriesCollection(userId: userId).document(category.id).setData(data)
     }
     
-    // Saari categories fetch karne ke liye
     func fetchCategories(userId: String) async throws -> [Category] {
         let snapshot = try await categoriesCollection(userId: userId).getDocuments()
         
@@ -42,13 +38,13 @@ class CategoryRepository {
         }
     }
     
-    // Category delete karne ke liye (sirf custom wali, default nahi - yeh check ViewModel me hoga)
     func deleteCategory(userId: String, categoryId: String) async throws {
         try await categoriesCollection(userId: userId).document(categoryId).delete()
     }
     
-    // Naye signup ke baad default categories seed karne ke liye
-    func seedDefaultCategories(userId: String) async throws {
+    // MARK: - Seed Default Categories (naye signup ke waqt) - ab created categories return karta hai
+    @discardableResult
+    func seedDefaultCategories(userId: String) async throws -> [Category] {
         let defaults: [Category] = [
             Category(id: UUID().uuidString, name: "Food", iconName: "fork.knife", colorHex: "FF9F43", type: .expense, isDefault: true),
             Category(id: UUID().uuidString, name: "Transport", iconName: "car.fill", colorHex: "54A0FF", type: .expense, isDefault: true),
@@ -63,5 +59,6 @@ class CategoryRepository {
         for category in defaults {
             try await addCategory(userId: userId, category: category)
         }
+        return defaults
     }
 }

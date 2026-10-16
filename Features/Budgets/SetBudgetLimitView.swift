@@ -23,8 +23,17 @@ struct SetBudgetLimitView: View {
                 
                 Section("Monthly Budget Limit") {
                     TextField("Enter amount", text: $limitText)
-                        .keyboardType(.decimalPad)
+                        .keyboardType(.numberPad)
                         .font(.title2.bold())
+                        .onChange(of: limitText) { newValue in
+                            // Sirf digits allow karo, aur zyada se zyada 8 digits (99,999,999 tak)
+                            let filtered = newValue.filter { $0.isNumber }
+                            limitText = String(filtered.prefix(8))
+                        }
+                    
+                    Text("Maximum limit: ₹9,99,99,999")
+                        .font(.caption2)
+                        .foregroundColor(AppTheme.textSecondary)
                 }
                 
                 if let error = viewModel.errorMessage {
@@ -41,7 +50,7 @@ struct SetBudgetLimitView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Save") {
                         Task {
-                            guard let limit = Double(limitText) else {
+                            guard let limit = Double(limitText), limit > 0 else {
                                 viewModel.errorMessage = "Please enter a valid number"
                                 return
                             }

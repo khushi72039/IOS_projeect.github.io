@@ -4,7 +4,7 @@ struct AddCategoryView: View {
     @ObservedObject var viewModel: CategoryViewModel
     @Environment(\.dismiss) private var dismiss
     
-    // Predefined icons jisme se user choose kar sakta hai
+    
     let availableIcons = [
         "tag.fill", "fork.knife", "car.fill", "popcorn.fill", "bag.fill",
         "doc.text.fill", "cross.case.fill", "banknote.fill", "house.fill",
@@ -12,7 +12,7 @@ struct AddCategoryView: View {
         "pawprint.fill", "graduationcap.fill", "wrench.fill"
     ]
     
-    // Predefined colors jisme se user choose kar sakta hai
+   
     let availableColors = [
         "FF9F43", "54A0FF", "A55EEA", "FD79A8", "778CA3",
         "26DE81", "20BF6B", "EE5A6F", "FC5C65", "45AAF2"

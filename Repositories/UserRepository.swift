@@ -1,10 +1,3 @@
-//
-//  UserRepository.swift
-//  Finace_tracker_khushi
-//
-//  Created by Mobile5 on 09/07/26.
-//
-
 import Foundation
 import FirebaseFirestore
 
@@ -12,20 +5,22 @@ class UserRepository {
     
     private let db = Firestore.firestore()
     
-    // Signup ke baad naya User document Firestore me banane ke liye
     func createUser(_ user: User) async throws {
-        let data: [String: Any] = [
+        var data: [String: Any] = [
             "id": user.id,
             "name": user.name,
             "email": user.email,
             "currencyCode": user.currencyCode,
-            "createdAt": Timestamp(date: user.createdAt)
+            "createdAt": Timestamp(date: user.createdAt),
+            "savingsGoalPercent": user.savingsGoalPercent,
+            "dailySpendingLimit": user.dailySpendingLimit
         ]
-        
+        if let imageBase64 = user.profileImageBase64 {
+            data["profileImageBase64"] = imageBase64
+        }
         try await db.collection("users").document(user.id).setData(data)
     }
     
-    // Login ke baad ya app open hote hi user ka data fetch karne ke liye
     func fetchUser(userId: String) async throws -> User? {
         let document = try await db.collection("users").document(userId).getDocument()
         
@@ -36,12 +31,14 @@ class UserRepository {
         let currencyCode = data["currencyCode"] as? String ?? "INR"
         let timestamp = data["createdAt"] as? Timestamp
         let createdAt = timestamp?.dateValue() ?? Date()
+        let savingsGoalPercent = data["savingsGoalPercent"] as? Double ?? 20
+        let profileImageBase64 = data["profileImageBase64"] as? String
+        let dailySpendingLimit = data["dailySpendingLimit"] as? Double ?? 500
         
-        return User(id: userId, name: name, email: email, currencyCode: currencyCode, createdAt: createdAt)
+        return User(id: userId, name: name, email: email, currencyCode: currencyCode, createdAt: createdAt, savingsGoalPercent: savingsGoalPercent, profileImageBase64: profileImageBase64, dailySpendingLimit: dailySpendingLimit)
     }
     
-    // Currency ya naam update karne ke liye (future me Settings screen me kaam aayega)
     func updateUser(_ user: User) async throws {
-        try await createUser(user) // setData overwrite kar deta hai, isliye same function reuse kar sakte hain
+        try await createUser(user)
     }
 }

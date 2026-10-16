@@ -10,5 +10,5 @@ struct Budget: Codable, Identifiable {
     var monthlyLimit: Double
     var month: Int
     var year: Int
-    var notifiedThresholds: [Int]   // [75, 90, 100] me se jo already notify ho chuke hain
+    var notifiedThresholds: [Int]  
 }

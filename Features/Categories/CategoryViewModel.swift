@@ -7,7 +7,6 @@ class CategoryViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var errorMessage: String? = nil
     
-    // New category form fields
     @Published var newCategoryName: String = ""
     @Published var newCategoryIcon: String = "tag.fill"
     @Published var newCategoryColorHex: String = "54A0FF"
@@ -20,7 +19,6 @@ class CategoryViewModel: ObservableObject {
         self.userId = id
     }
     
-    // Saari categories fetch karne ke liye
     func fetchCategories() async {
         guard let userId = userId else { return }
         isLoading = true
@@ -32,7 +30,6 @@ class CategoryViewModel: ObservableObject {
         isLoading = false
     }
     
-    // Income aur Expense categories ko alag-alag dikhane ke liye computed properties
     var incomeCategories: [Category] {
         categories.filter { $0.type == .income }
     }
@@ -41,7 +38,7 @@ class CategoryViewModel: ObservableObject {
         categories.filter { $0.type == .expense }
     }
     
-    // Naya custom category add karne ke liye
+    // MARK: - Add Category (naye custom expense category ke liye default budget bhi banata hai)
     func addCategory() async -> Bool {
         guard let userId = userId else { return false }
         errorMessage = nil
@@ -52,9 +49,8 @@ class CategoryViewModel: ObservableObject {
             return false
         }
         
-        // Duplicate name check (case-insensitive)
-        if categories.contains(where: { $0.name.lowercased() == trimmedName.lowercased() }) {
-            errorMessage = "This category already exists"
+        if categories.contains(where: { $0.name.lowercased() == trimmedName.lowercased() && $0.type == newCategoryType }) {
+            errorMessage = "This category already exists in \(newCategoryType == .income ? "Income" : "Expense")"
             return false
         }
         
@@ -70,6 +66,21 @@ class CategoryViewModel: ObservableObject {
         do {
             try await repository.addCategory(userId: userId, category: newCategory)
             categories.append(newCategory)
+            
+            // Naya expense category ke liye default budget bhi bana do
+            if newCategory.type == .expense {
+                let budgetRepository = BudgetRepository()
+                let calendar = Calendar.current
+                let now = Date()
+                let defaultBudget = Budget(
+                    id: UUID().uuidString, categoryId: newCategory.id, categoryName: newCategory.name,
+                    categoryIcon: newCategory.iconName, categoryColorHex: newCategory.colorHex,
+                    monthlyLimit: 1000, month: calendar.component(.month, from: now),
+                    year: calendar.component(.year, from: now), notifiedThresholds: []
+                )
+                try? await budgetRepository.setBudget(userId: userId, budget: defaultBudget)
+            }
+            
             resetForm()
             return true
         } catch {
@@ -78,7 +89,6 @@ class CategoryViewModel: ObservableObject {
         }
     }
     
-    // Category delete karne ke liye - sirf custom categories delete ho sakti hain
     func deleteCategory(_ category: Category) async {
         guard let userId = userId else { return }
         guard !category.isDefault else {

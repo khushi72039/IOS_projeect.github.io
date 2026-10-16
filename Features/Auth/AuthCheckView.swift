@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct AuthCheckView: View {
-    @EnvironmentObject var viewModel: AuthViewModel   // StateObject ki jagah ab EnvironmentObject
+    @EnvironmentObject var viewModel: AuthViewModel
     
     var body: some View {
         Group {
@@ -10,6 +10,10 @@ struct AuthCheckView: View {
             } else {
                 LoginView()
             }
+        }
+        .task {
+            // App me pehli baar login hone par notification permission maango
+            _ = await NotificationService.shared.requestAuthorization()
         }
     }
 }

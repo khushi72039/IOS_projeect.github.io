@@ -1,28 +1,24 @@
-//
-//  SplashView.swift
-//  Finace_tracker_khushi
-//
-//  Created by Mobile5 on 15/07/26.
-//
-
 import SwiftUI
 
 struct SplashView: View {
     @State private var isActive = false
     @State private var logoScale: CGFloat = 0.7
     @State private var logoOpacity: Double = 0.0
+    @State private var showOnboarding = !UserDefaults.standard.bool(forKey: "hasSeenOnboarding")
     
     var body: some View {
         if isActive {
-            AuthCheckView()
+            if showOnboarding {
+                OnboardingView(showOnboarding: $showOnboarding)
+            } else {
+                AuthCheckView()
+            }
         } else {
             ZStack {
                 AppTheme.heroCardGradient
                     .ignoresSafeArea()
                 
                 VStack(spacing: 16) {
-                    // TODO: Jab asli logo mil jaye, is Image ko replace kar dena:
-                    // Image("AppLogo") // Assets.xcassets me logo add karke
                     ZStack {
                         Circle()
                             .fill(Color.white.opacity(0.15))
@@ -53,7 +49,6 @@ struct SplashView: View {
                     logoOpacity = 1.0
                 }
                 
-                // 2.5 second baad AuthCheckView par chale jao
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
                     withAnimation {
                         isActive = true

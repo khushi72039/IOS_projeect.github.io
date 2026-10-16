@@ -12,14 +12,14 @@ class ChartsViewModel: ObservableObject {
     
     @Published var monthlyTotals: [MonthlyTotal] = []
     @Published var categoryBreakdown: [CategorySlice] = []
-    @Published var selectedMonthOffset: Int = 0   // 0 = current month, 1 = last month, etc.
+    @Published var selectedMonthOffset: Int = 0
     @Published var isLoading: Bool = false
     
     private let transactionRepository = TransactionRepository()
     private var allTransactions: [Transaction] = []
     private var userId: String?
     
-    // Last 6 months ke labels (jaise "Feb", "Mar"...) - month switcher ke liye
+    
     var availableMonths: [(offset: Int, label: String)] {
         (0..<6).map { offset in
             let date = Calendar.current.date(byAdding: .month, value: -offset, to: Date()) ?? Date()

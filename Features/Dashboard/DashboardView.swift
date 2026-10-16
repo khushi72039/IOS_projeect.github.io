@@ -1,27 +1,53 @@
 import SwiftUI
+import WidgetKit
 
 struct DashboardView: View {
     @StateObject private var viewModel = DashboardViewModel()
     @EnvironmentObject var authViewModel: AuthViewModel
+    @StateObject private var transactionViewModel = TransactionViewModel()
+    @State private var showAddIncome = false
+    @State private var showAddExpense = false
+    @Binding var path: NavigationPath
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             ScrollView {
                 VStack(spacing: 20) {
                     
-                    // Greeting Header
-                    HStack {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Hello, \(viewModel.userName) 👋")
-                                .font(.title2.bold())
-                            Text("Here's your financial overview")
-                                .font(.subheadline)
-                                .foregroundColor(AppTheme.textSecondary)
+                    HStack(spacing: 12) {
+                        if let image = viewModel.userProfileImage {
+                            Image(uiImage: image)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 44, height: 44)
+                                .clipShape(Circle())
+                        } else {
+                            ZStack {
+                                Circle()
+                                    .fill(AppTheme.primaryIndigo.opacity(0.15))
+                                    .frame(width: 44, height: 44)
+                                Text(viewModel.userName.prefix(1).uppercased())
+                                    .font(.headline)
+                                    .foregroundColor(AppTheme.primaryIndigo)
+                            }
                         }
+                        
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(viewModel.greeting)
+                                .font(.caption)
+                                .foregroundColor(AppTheme.textSecondary)
+                            Text(viewModel.userName)
+                                .font(.title3.bold())
+                        }
+                        
                         Spacer()
+                        
                         Image(systemName: "bell.fill")
-                            .font(.title3)
+                            .font(.body)
                             .foregroundColor(AppTheme.primaryIndigo)
+                            .frame(width: 38, height: 38)
+                            .background(AppTheme.fieldBackground)
+                            .clipShape(Circle())
                     }
                     .padding(.horizontal)
                     .padding(.top, 8)
@@ -31,11 +57,29 @@ struct DashboardView: View {
                             .frame(maxWidth: .infinity)
                             .padding(.top, 60)
                     } else {
-                        // Balance Hero Card
                         VStack(spacing: 16) {
-                            Text("Net Balance (This Month)")
-                                .font(.caption)
-                                .foregroundColor(.white.opacity(0.7))
+                            HStack {
+                                Text(viewModel.selectedMonthOption.date == nil ? "Total Net Balance" : "Net Balance")
+                                    .font(.caption)
+                                    .foregroundColor(.white.opacity(0.7))
+                                Spacer()
+                                Menu {
+                                    ForEach(viewModel.monthOptions) { option in
+                                        Button(option.label) {
+                                            viewModel.selectedMonthOption = option
+                                            Task { await viewModel.loadDashboardData() }
+                                        }
+                                    }
+                                } label: {
+                                    HStack(spacing: 4) {
+                                        Text(viewModel.selectedMonthOption.label)
+                                            .font(.caption.bold())
+                                        Image(systemName: "chevron.down")
+                                            .font(.caption2)
+                                    }
+                                    .foregroundColor(.white)
+                                }
+                            }
                             
                             Text("₹\(viewModel.netBalance, specifier: "%.0f")")
                                 .font(.system(size: 38, weight: .bold, design: .rounded))
@@ -77,7 +121,6 @@ struct DashboardView: View {
                         .shadow(color: AppTheme.primaryIndigo.opacity(0.3), radius: 15, y: 8)
                         .padding(.horizontal)
                         
-                        // Budget Alert Banner (conditional - Budget Model bante hi enable hoga)
                         if viewModel.isBudgetAlertVisible {
                             HStack(spacing: 12) {
                                 Image(systemName: "exclamationmark.triangle.fill")
@@ -93,21 +136,36 @@ struct DashboardView: View {
                             .padding(.horizontal)
                         }
                         
+                        HStack(spacing: 12) {
+                            Button {
+                                transactionViewModel.selectedType = .income
+                                showAddIncome = true
+                            } label: {
+                                QuickActionButton(icon: "plus.circle.fill", label: "Add Income", color: AppTheme.incomeGreen)
+                            }
+                            
+                            Button {
+                                transactionViewModel.selectedType = .expense
+                                showAddExpense = true
+                            } label: {
+                                QuickActionButton(icon: "minus.circle.fill", label: "Add Expense", color: AppTheme.expenseRed)
+                            }
+                            
+                            NavigationLink {
+                                ChartsView()
+                            } label: {
+                                QuickActionButton(icon: "chart.pie.fill", label: "Charts", color: AppTheme.primaryIndigo)
+                            }
+                            
+                            NavigationLink {
+                                InsightsView()
+                                    .environmentObject(authViewModel)
+                            } label: {
+                                QuickActionButton(icon: "lightbulb.fill", label: "Insights", color: AppTheme.warningAmber)
+                            }
+                        }
+                        .padding(.horizontal)
                         
-                        // Quick Actions
-                                                HStack(spacing: 16) {
-                                                    QuickActionButton(icon: "plus.circle.fill", label: "Add Income", color: AppTheme.incomeGreen)
-                                                    QuickActionButton(icon: "minus.circle.fill", label: "Add Expense", color: AppTheme.expenseRed)
-                                                    
-                                                    NavigationLink {
-                                                        ChartsView()
-                                                    } label: {
-                                                        QuickActionButton(icon: "chart.pie.fill", label: "Reports", color: AppTheme.primaryIndigo)
-                                                    }
-                                                }
-                                                .padding(.horizontal)
-                        
-                        // Top Categories
                         if !viewModel.topCategories.isEmpty {
                             VStack(alignment: .leading, spacing: 12) {
                                 Text("Top Spending Categories")
@@ -125,7 +183,6 @@ struct DashboardView: View {
                             }
                         }
                         
-                        // Recent Transactions
                         VStack(alignment: .leading, spacing: 12) {
                             HStack {
                                 Text("Recent Transactions")
@@ -157,18 +214,34 @@ struct DashboardView: View {
             .refreshable {
                 await viewModel.loadDashboardData()
             }
+            .sheet(isPresented: $showAddIncome, onDismiss: {
+                Task { await viewModel.loadDashboardData() }
+            }) {
+                AddTransactionView(viewModel: transactionViewModel)
+                    .environmentObject(authViewModel)
+            }
+            .sheet(isPresented: $showAddExpense, onDismiss: {
+                Task { await viewModel.loadDashboardData() }
+            }) {
+                AddTransactionView(viewModel: transactionViewModel)
+                    .environmentObject(authViewModel)
+            }
             .onAppear {
                 viewModel.setUserName(authViewModel.currentUser?.name ?? "User")
+                viewModel.setUserProfileImage(authViewModel.currentUser?.profileImageBase64)
                 if let uid = authViewModel.currentUser?.id {
                     viewModel.setUserId(uid)
-                    Task { await viewModel.loadDashboardData() }
+                    transactionViewModel.setUserId(uid)
+                    Task {
+                        await viewModel.loadDashboardData()
+                        let limit = authViewModel.currentUser?.dailySpendingLimit ?? 500
+                        await SharedDataManager.shared.syncWidgetData(userId: uid, dailyLimit: limit)
+                    }
                 }
             }
         }
     }
 }
-
-// MARK: - Reusable Components
 
 struct QuickActionButton: View {
     let icon: String
